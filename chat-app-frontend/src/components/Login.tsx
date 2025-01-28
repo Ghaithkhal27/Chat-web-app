@@ -15,7 +15,7 @@ const Login: React.FC = () => {
       });
       console.log(response.data);
       localStorage.setItem('token', response.data.token);
-      navigate('/AllUsers');
+      navigate('/all-users');
     } catch (error) {
       console.error(error);
     }
