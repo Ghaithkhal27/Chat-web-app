@@ -28,7 +28,6 @@ const Navbar: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Animation variants
   const mobileMenuVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0 },
@@ -101,7 +100,6 @@ const Navbar: React.FC = () => {
           </motion.li>
         </ul>
 
-        {/* Mobile Menu Toggle */}
         <motion.button
           onClick={toggleMobileMenu}
           whileHover={{ scale: 1.1 }}
@@ -116,7 +114,6 @@ const Navbar: React.FC = () => {
         </motion.button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
