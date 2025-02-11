@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+
+import { useLoginStore } from '../zustandStore/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
+  const {email,password,setEmail,setPassword,login}=useLoginStore()
+
+  const navigate=useNavigate()
+
+   
+    
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3001/api/login', {
-        email,
-        password,
-      });
-      console.log(response.data);
-      navigate('/all-users');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+      e.preventDefault();
+      try {
+        await login()
+        navigate('/all-users');
+      } catch (error) {
+        console.error(error);
+      }
+    };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <svg
+        <svg
             className="mx-auto h-12 w-12 text-indigo-600"
             fill="none"
             stroke="currentColor"
@@ -36,7 +35,7 @@ const Login: React.FC = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
             />
           </svg>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -113,12 +112,12 @@ const Login: React.FC = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            {/* <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white text-gray-500">Or continue with</span>
-            </div>
+            </div> */}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-6">
+          {/* <div className="grid grid-cols-2 gap-3 mt-6">
             <button
               type="button"
               className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
@@ -138,7 +137,7 @@ const Login: React.FC = () => {
               </svg>
               <span className="ml-2 text-sm font-medium text-gray-700">Facebook</span>
             </button>
-          </div>
+          </div> */}
 
           <p className="mt-8 text-center text-sm text-gray-600">
             Don't have an account?{' '}

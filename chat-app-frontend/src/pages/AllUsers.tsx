@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect} from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { motion } from "framer-motion";
 import { FaUserCircle } from "react-icons/fa";
+import { token } from "../util/token";
+import { User, useUserStore } from "../zustandStore/useUserStore";
 
-interface User {
-  id: string;
-  username: string;
-  profilePicture: string | null;
-}
+
+
+
+
+
 
 const AllUsers: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const token = localStorage.getItem("token");
+  const {getUsers,users}=useUserStore()
+  
+ 
   const navigate = useNavigate();
-  const myId = token ? (jwtDecode(token) as { userId: string }).userId : null;
+  const myId = token?.userId 
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/users", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    fetchUsers();
-  }, [token]);
+    getUsers();
+  }, []);
+  
 
   const handleUserClick = (user: User) => {
     navigate(`/chat/${user.id}`, { 
