@@ -1,54 +1,34 @@
-import React from 'react';
-import { jwtDecode } from "jwt-decode";
+import React, { useEffect } from "react";
+import { EnvelopeIcon, LinkIcon } from "@heroicons/react/24/solid";
 import { 
-  Container,
-  Paper,
-  Typography,
-  Avatar,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Button, 
-  Box
-} from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
-import PersonIcon from '@mui/icons-material/Person';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import Navbar from '../components/Navbar';
 
-const UserProfile: React.FC = () => {
-  const token = localStorage.getItem('token');
-  let userId: string = '';
-  let userName: string = 'Guest';
-  let userEmail: string = '';
+    Avatar,
 
-  if (token) {
-    const decodedToken: any = jwtDecode(token);
-    userId = decodedToken.userId || '';
-    userName = decodedToken.userName || 'Guest';
-    userEmail = decodedToken.email || '';
-  }
+  } from '@mui/material';
+import { token } from "../util/token";
 
-  const getInitials = (name: string) => {
-    return name.split(' ').map((n) => n[0]).join('').toUpperCase();
-  };
+
+const ProfilePage: React.FC = () => {
+
+
+
+
+
+    const getInitials = () => {
+        return token?.userName.split(' ').map((n) => n[0]).join('').toUpperCase();
+      };
+
+
+
+ 
+ 
 
   return (
-    <div>
-      <Navbar />
-      <Container maxWidth="sm" sx={{ mt: 8 }}>
-        <Paper elevation={3} sx={{ 
-          p: 4, 
-          borderRadius: 4,
-          background: 'linear-gradient(45deg, #f5f7fa 0%, #c3cfe2 100%)'
-        }}>
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            mb: 4 
-          }}>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-[#0091ad] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-8 sm:p-12 space-y-8 mt-12">
+          <div className="flex flex-col items-center space-y-6">
+            <div className="relative group">
             <Avatar sx={{ 
               width: 100, 
               height: 100, 
@@ -56,70 +36,31 @@ const UserProfile: React.FC = () => {
               bgcolor: 'primary.main',
               fontSize: '2.5rem'
             }}>
-              {getInitials(userName)}
+              {getInitials()}
             </Avatar>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-200 to-pink-200 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-bold text-gray-900">
+                {token?.userName}
+                <span className="ml-2 text-purple-600">✨</span>
+              </h1>
+              <p className="text-lg text-gray-600 flex items-center justify-center space-x-2">
+                <EnvelopeIcon className="w-5 h-5 text-purple-500" />
+                <span>{token?.userName}@gmail.com</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="prose prose-lg text-center text-gray-700 max-w-none">
             
-            <Typography variant="h4" component="h1" gutterBottom sx={{ 
-              fontWeight: 700,
-              color: 'text.primary'
-            }}>
-              {userName}
-            </Typography>
-          </Box>
-
-          <List sx={{ width: '100%' }}>
-            <ListItem sx={{ bgcolor: 'background.paper', mb: 1, borderRadius: 2 }}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: 'secondary.main' }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText 
-                primary="User ID" 
-                secondary={userId}
-                primaryTypographyProps={{ fontWeight: 600 }}
-              />
-            </ListItem>
-
-            <ListItem sx={{ bgcolor: 'background.paper', mb: 1, borderRadius: 2 }}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: 'success.main' }}>
-                  <EmailIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText 
-                primary="Email Address" 
-                secondary={userEmail}
-                primaryTypographyProps={{ fontWeight: 600 }}
-              />
-            </ListItem>
-          </List>
-
-          <Box sx={{ 
-            mt: 4,
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 2
-          }}>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<ModeEditIcon />}
-              sx={{
-                px: 4,
-                py: 1.5,
-                borderRadius: 20,
-                textTransform: 'none',
-                fontSize: '1rem'
-              }}
-            >
-              Edit Profile
-            </Button>
-          </Box>
-        </Paper>
-      </Container>
+              "No bio available yet. Write something about yourself!"
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default UserProfile;
+export default ProfilePage;

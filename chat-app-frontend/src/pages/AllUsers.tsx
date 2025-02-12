@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,42 +6,45 @@ import { FaUserCircle } from "react-icons/fa";
 import { token } from "../util/token";
 import { User, useUserStore } from "../zustandStore/useUserStore";
 
-
-
-
-
-
-
 const AllUsers: React.FC = () => {
-  const {getUsers,users}=useUserStore()
-  
- 
+  const { getUsers, users } = useUserStore();
+  const [searchInput, setsearchInput] = useState("");
+
   const navigate = useNavigate();
-  const myId = token?.userId 
+  const myId = token?.userId;
 
   useEffect(() => {
     getUsers();
   }, []);
-  
 
   const handleUserClick = (user: User) => {
-    navigate(`/chat/${user.id}`, { 
-      state: { 
+    navigate(`/chat/${user.id}`, {
+      state: {
         receiverName: user.username,
-        profilePicture: user.profilePicture 
-      }
+        profilePicture: user.profilePicture,
+      },
     });
   };
+  const filtredUser = users.filter((user) => {
+    return user.id !== myId && user.username.toLowerCase().includes(searchInput.toLowerCase());
+  });
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#03045e] to-[#023e8a]">
       <Navbar />
-      <div className="p-5 max-w-4xl mx-auto mt-20">
-        <h1 className="text-4xl font-bold mb-8 text-center text-white">
-          Connect with Users
-        </h1>
+      <div className="p-5 max-w-4xl mx-auto mt-[70px]"> 
+        <input
+          type="text"
+          placeholder="Search users..."
+          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value={searchInput}
+          onChange={(e) => setsearchInput(e.target.value)}
+        />
+
+        <h1 className="text-4xl font-bold mb-8 text-center text-white"></h1>
         <motion.ul className="space-y-4">
-          {users.filter(user => user.id !== myId).map((user, index) => (
+          {filtredUser.map((user, index) => (
             <motion.li
               key={user.id}
               initial={{ opacity: 0, y: 20 }}
@@ -65,6 +68,9 @@ const AllUsers: React.FC = () => {
             </motion.li>
           ))}
         </motion.ul>
+        {filtredUser.length === 0 && (
+            <div className="p-8 text-center text-gray-500">No users found</div>
+          )}
       </div>
     </div>
   );
