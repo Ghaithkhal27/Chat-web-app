@@ -1,179 +1,85 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { 
-  FaUsers, 
-  FaUser,
-  FaTimes, 
-  FaBars
-} from 'react-icons/fa';
-import { 
-  RiChatSmile3Fill,
-  RiLogoutCircleRLine 
-} from 'react-icons/ri';
-import { 
-  FiLogOut 
-} from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaUsers, FaUser } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+import { motion } from "framer-motion";
+import {
+  ChatBubbleLeftEllipsisIcon,
+  HomeIcon,
+} from "@heroicons/react/24/solid";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem("token");
+    navigate("/login");
   };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  };
-
-  const itemVariants = {
-    hover: { scale: 1.05, originX: 0 },
-    tap: { scale: 0.95 }
-  };
-
-  const logoVariants = {
-    hover: { rotate: [0, -10, 10, 0], transition: { duration: 0.6 } }
-  };
+  const logo = ["C","h","a","t","R","o","c","k","e","t"];
 
   return (
-    <nav className="w-full bg-gradient-to-r from-[#03045e] to-[#023e8a] p-4 shadow-lg z-50 fixed top-0">
-      <div className="container mx-auto flex justify-between items-center">
-        <motion.div
-          whileHover="hover"
-          variants={logoVariants}
-        >
-          <Link
-            to="/AllUsers"
-            className="text-white text-2xl font-bold flex items-center space-x-2"
-          >
-            <RiChatSmile3Fill className="text-4xl text-[#9d4edd] animate-pulse-slow" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#9d4edd] to-[#c77dff]">
-              ChatVerse
-            </span>
+    <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link to={"/home"}>
+          <div className="flex items-center cursor-pointer">
+          <motion.span  whileHover={{ y: -5 }}>
+          <ChatBubbleLeftEllipsisIcon className="text-indigo-600 w-7 h-7 space-x-5" />
+          </motion.span>
+            
+            {logo.map((l, i) => {
+              return (
+                <motion.span
+                  key={i}
+                  className="text-2xl font-bold text-indigo-600"
+                  whileHover={{ y: -5 }}
+                >
+                  {l}
+                </motion.span>
+              );
+            })}
+          </div>
           </Link>
-        </motion.div>
 
-        <ul className="hidden md:flex space-x-6 items-center">
-          <motion.li
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link
-              to="/all-users"
-              className="text-white font-semibold hover:text-[#9d4edd] transition-all duration-300 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/10"
-            >
-              <FaUsers className="text-xl" />
-              <span>Community</span>
-            </Link>
-          </motion.li>
-          <motion.li
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link
-              to="/profile"
-              className="text-white font-semibold hover:text-[#9d4edd] transition-all duration-300 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/10"
-            >
-              <FaUser className="text-xl" />
-              <span>Profile</span>
-            </Link>
-          </motion.li>
-          <motion.li
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <button
+          <div className="flex items-center space-x-8">
+            <NavItem to="/home" icon={HomeIcon} label="home" />
+            <NavItem to="/profile" icon={FaUser} label="Profile" />
+            <NavItem to="/all-users" icon={FaUsers} label="Community" />
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleLogout}
-              className="flex items-center space-x-2 bg-gradient-to-r from-[#ff6b6b] to-[#ff8787] px-6 py-2 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              className="flex items-center space-x-2 text-red-600 hover:text-red-700 transition-colors"
             >
-              <FiLogOut className="text-xl transition-transform group-hover:translate-x-1" />
-              <span>Logout</span>
-            </button>
-          </motion.li>
-        </ul>
-
-        <motion.button
-          onClick={toggleMobileMenu}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="text-white md:hidden focus:outline-none"
-        >
-          {isMobileMenuOpen ? (
-            <FaTimes className="text-2xl" />
-          ) : (
-            <FaBars className="text-2xl" />
-          )}
-        </motion.button>
+              <FiLogOut className="w-5 h-5" />
+              <span className="text-sm font-medium">Logout</span>
+            </motion.button>
+          </div>
+        </div>
       </div>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={mobileMenuVariants}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#03045e] mt-4 p-4 rounded-lg shadow-xl backdrop-blur-sm"
-          >
-            <ul className="flex flex-col space-y-4">
-              <motion.li
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <Link
-                  to="/AllUsers"
-                  className="text-white font-semibold flex items-center space-x-2 p-3 rounded-lg bg-white/5 hover:bg-white/10"
-                  onClick={toggleMobileMenu}
-                >
-                  <FaUsers className="text-xl" />
-                  <span>Community</span>
-                </Link>
-              </motion.li>
-              <motion.li
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <Link
-                  to="/profile"
-                  className="text-white font-semibold flex items-center space-x-2 p-3 rounded-lg bg-white/5 hover:bg-white/10"
-                  onClick={toggleMobileMenu}
-                >
-                  <FaUser className="text-xl" />
-                  <span>Profile</span>
-                </Link>
-              </motion.li>
-              <motion.li
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    toggleMobileMenu();
-                  }}
-                  className="w-full flex items-center space-x-2 p-3 rounded-lg bg-gradient-to-r from-[#ff6b6b] to-[#ff8787] text-white font-semibold justify-center shadow-lg hover:scale-105 transition-transform"
-                >
-                  <RiLogoutCircleRLine className="text-xl" />
-                  <span>Logout</span>
-                </button>
-              </motion.li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
+  );
+};
+
+interface NavItemProps {
+  to: string;
+  icon: React.ElementType;
+  label: string;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ to, icon: Icon, label }) => {
+  return (
+    <motion.div whileHover={{ scale: 1.05 }} className="group relative">
+      <Link
+        to={to}
+        className="flex items-center space-x-2 text-gray-600 hover:text-indigo-600 transition-colors"
+      >
+        <Icon className="w-5 h-5" />
+        <span className="text-sm font-medium">{label}</span>
+      </Link>
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+    </motion.div>
   );
 };
 

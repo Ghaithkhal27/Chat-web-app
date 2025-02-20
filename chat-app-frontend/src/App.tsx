@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 
 const Signup = lazy(() => import("./components/Signup"));
 const Login = lazy(() => import("./components/Login"));
@@ -38,6 +39,7 @@ const App: React.FC = () => {
 
             <Route element={<ProtectedLayout />}>
               <Route element={<MainLayout />}>
+                <Route path="/home" element={<Home />} />
                 <Route path="/all-users" element={<AllUsers />} />
                 <Route path="/chat/:id" element={<ChatPage />} />
                 <Route path="/profile" element={<UserProfile />} />

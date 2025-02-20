@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FaUserCircle } from "react-icons/fa";
 import { token } from "../util/token";
 import { User, useUserStore } from "../zustandStore/useUserStore";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 const AllUsers: React.FC = () => {
   const { getUsers, users } = useUserStore();
@@ -31,16 +32,24 @@ const AllUsers: React.FC = () => {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#03045e] to-[#023e8a]">
+    <div className="min-h-screen bg-gradient-to-br from-[#0353a4] to-[#7ae582]">
       <Navbar />
-      <div className="p-5 max-w-4xl mx-auto mt-[70px]"> 
-        <input
-          type="text"
-          placeholder="Search users..."
-          className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          value={searchInput}
-          onChange={(e) => setsearchInput(e.target.value)}
-        />
+      <div className="p-5 max-w-4xl mx-auto mt-[60px]"> 
+      <div className="relative bg-[#023e7d]/80 backdrop-blur-lg rounded-xl p-4 shadow-xl">
+
+        <div className="flex items-center gap-4 " >
+              <MagnifyingGlassIcon className="w-6 h-6 text-purple-400" />
+              <input
+                type="text"
+                placeholder="Search users..."
+                className="w-full bg-transparent text-white focus:outline-none placeholder-gray-400
+                  text-lg font-medium"
+                value={searchInput}
+                onChange={(e) => setsearchInput(e.target.value)}
+              />
+            </div>
+            </div>
+        
 
         <h1 className="text-4xl font-bold mb-8 text-center text-white"></h1>
         <motion.ul className="space-y-4">

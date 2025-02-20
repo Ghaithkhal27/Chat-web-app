@@ -24,7 +24,7 @@ const ProfilePage: React.FC = () => {
  
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-[#0091ad] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#0353a4] to-[#7ae582] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl p-8 sm:p-12 space-y-8 mt-12">
           <div className="flex flex-col items-center space-y-6">

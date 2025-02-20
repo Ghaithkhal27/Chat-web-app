@@ -142,20 +142,10 @@ const ChatPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#03045e] to-[#023e8a]">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#0353a4] to-[#7ae582]">
+        
         <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-xl w-full max-w-4xl h-[80vh] flex flex-col relative mt-20 overflow-hidden">
-          <div className="bg-[#03045e] p-4 rounded-t-xl shadow-md flex items-center">
-            {profilePicture && (
-              <img
-                src={profilePicture}
-                alt={receiverName}
-                className="w-10 h-10 rounded-full mr-3 border-2 border-white/50"
-              />
-            )}
-            <h2 className="text-xl font-bold text-white">
-              Chat with {receiverName}
-            </h2>
-          </div>
+
 
           <div
             ref={chatContainerRef}
