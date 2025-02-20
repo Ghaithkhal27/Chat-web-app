@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RiChatSmile3Fill } from 'react-icons/ri';
+import { motion } from "framer-motion";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartChat = () => {
-    navigate('/home'); 
+    navigate('/all-users'); 
   };
 
   return (
@@ -19,17 +20,19 @@ const Home: React.FC = () => {
         <p className="text-xl md:text-2xl max-w-2xl mx-auto">
           Connect with friends, family, or strangers in real-time. Fast, fun, and free chatting awaits you!
         </p>
-
-        <button
-          onClick={handleStartChat}
+        
+        <motion.button
+          whileHover={{ scale: 1.05, backgroundColor: '#5a31f4' }}
+          transition={{ duration: 0.3 }}
+          onClick={handleStartChat} 
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
         >
           <RiChatSmile3Fill className="h-6 w-6" />
-          Start Chat
-        </button>
+          Start Chatting
+        </motion.button>
       </div>
     </div>
   );
 };
 
-export default Home
+export default Home;

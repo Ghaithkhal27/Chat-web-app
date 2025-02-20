@@ -16,9 +16,10 @@ const Navbar: React.FC = () => {
     navigate("/login");
   };
   const logo = ["C","h","a","t","R","o","c","k","e","t"];
+  
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-[#ffff] shadow-md z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to={"/home"}>

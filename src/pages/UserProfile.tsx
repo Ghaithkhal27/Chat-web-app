@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { EnvelopeIcon, LinkIcon } from "@heroicons/react/24/solid";
+import React from "react";
+import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import { 
 
     Avatar,

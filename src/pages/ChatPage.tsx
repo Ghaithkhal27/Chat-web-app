@@ -23,7 +23,7 @@ const socket = io("http://localhost:3001");
 const ChatPage: React.FC = () => {
   const { id: receiverId } = useParams<{ id: string }>();
   const location = useLocation();
-  const { receiverName, profilePicture } = location.state || { receiverName: 'Unknown' };
+  const { receiverName } = location.state || { receiverName: 'Unknown' };
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
