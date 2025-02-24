@@ -11,7 +11,7 @@ const Signup: React.FC = () => {
     e.preventDefault();
     try {
       await signup();
-      navigate('/all-users');
+      navigate('/home');
     } catch (error) {
       console.error(error);
     }

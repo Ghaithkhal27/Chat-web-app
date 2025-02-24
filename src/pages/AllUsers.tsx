@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence } from "framer-motion";
 import { FaUserCircle } from "react-icons/fa";
 import { token } from "../util/token";
 import { User, useUserStore } from "../zustandStore/useUserStore";
@@ -52,6 +52,7 @@ const AllUsers: React.FC = () => {
         
 
         <h1 className="text-4xl font-bold mb-8 text-center text-white"></h1>
+        <AnimatePresence mode="wait">
         <motion.ul className="space-y-4">
           {filtredUser.map((user, index) => (
             <motion.li
@@ -80,6 +81,8 @@ const AllUsers: React.FC = () => {
         {filtredUser.length === 0 && (
             <div className="p-8 text-center text-gray-500">No users found</div>
           )}
+      </AnimatePresence>
+
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Login: React.FC = () => {
       e.preventDefault();
       try {
         await login()
-        navigate('/all-users');
+        navigate('/home');
       } catch (error) {
         console.error(error);
       }
